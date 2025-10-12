@@ -1,0 +1,30 @@
+# Node dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build artifacts (will be recreated in the image)
+build
+dist
+
+# Local environment files
+.env.local
+.env.development
+.env.production
+.env.test
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode
+.idea
+
+# Git files
+.git
+.gitignore
+
+# Logs
+*.log
+npm-debug.log
+
+README.md

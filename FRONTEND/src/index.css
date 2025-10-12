@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Modern Notes App Design System - Beautiful gradients, colors, and animations */
+
+@layer base {
+  :root {
+    /* Background System */
+    --background: 250 100% 99%;
+    --background-secondary: 240 100% 98%;
+    --foreground: 220 20% 20%;
+
+    /* Card System */
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 20%;
+    --card-hover: 240 100% 99%;
+
+    /* Interactive Elements */
+    --primary: 270 80% 60%;
+    --primary-hover: 270 80% 55%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 240 10% 96%;
+    --secondary-hover: 240 10% 92%;
+    --secondary-foreground: 220 20% 20%;
+
+    /* Accent Colors */
+    --accent: 280 100% 95%;
+    --accent-foreground: 270 80% 30%;
+    --accent-glow: 270 80% 60%;
+
+    /* Muted Elements */
+    --muted: 240 5% 95%;
+    --muted-foreground: 220 10% 50%;
+
+    /* Status Colors */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Form Elements */
+    --border: 240 10% 90%;
+    --input: 240 10% 96%;
+    --input-focus: 270 80% 96%;
+    --ring: 270 80% 60%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(270 80% 60%), hsl(260 85% 65%));
+    --gradient-secondary: linear-gradient(135deg, hsl(240 100% 98%), hsl(250 100% 97%));
+    --gradient-accent: linear-gradient(135deg, hsl(280 100% 95%), hsl(270 100% 97%));
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px hsl(270 80% 60% / 0.08);
+    --shadow-md: 0 4px 12px hsl(270 80% 60% / 0.12);
+    --shadow-lg: 0 8px 24px hsl(270 80% 60% / 0.16);
+    --shadow-glow: 0 0 20px hsl(270 80% 60% / 0.3);
+
+    /* Radius */
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark Background System */
+    --background: 220 25% 8%;
+    --background-secondary: 220 20% 10%;
+    --foreground: 240 10% 95%;
+
+    /* Dark Card System */
+    --card: 220 20% 12%;
+    --card-foreground: 240 10% 95%;
+    --card-hover: 220 20% 15%;
+
+    /* Dark Interactive Elements */
+    --primary: 270 80% 70%;
+    --primary-hover: 270 80% 75%;
+    --primary-foreground: 220 25% 8%;
+    
+    --secondary: 220 15% 18%;
+    --secondary-hover: 220 15% 22%;
+    --secondary-foreground: 240 10% 95%;
+
+    /* Dark Accent Colors */
+    --accent: 270 80% 15%;
+    --accent-foreground: 270 80% 80%;
+    --accent-glow: 270 80% 70%;
+
+    /* Dark Muted Elements */
+    --muted: 220 15% 15%;
+    --muted-foreground: 240 10% 70%;
+
+    /* Dark Status Colors */
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 90% 55%;
+    --warning-foreground: 0 0% 100%;
+    --destructive: 0 80% 65%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Dark Form Elements */
+    --border: 220 15% 20%;
+    --input: 220 15% 15%;
+    --input-focus: 270 80% 20%;
+    --ring: 270 80% 70%;
+
+    /* Dark Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(270 80% 70%), hsl(260 85% 75%));
+    --gradient-secondary: linear-gradient(135deg, hsl(220 20% 10%), hsl(220 25% 12%));
+    --gradient-accent: linear-gradient(135deg, hsl(270 80% 15%), hsl(280 80% 18%));
+    
+    /* Dark Shadows */
+    --shadow-sm: 0 2px 8px hsl(220 25% 5% / 0.3);
+    --shadow-md: 0 4px 12px hsl(220 25% 5% / 0.4);
+    --shadow-lg: 0 8px 24px hsl(220 25% 5% / 0.5);
+    --shadow-glow: 0 0 20px hsl(270 80% 70% / 0.2);
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* Glass morphism effect for modern cards */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .glass {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Note card animations */
+  .note-card {
+    @apply transition-all duration-300 ease-out;
+    @apply hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .note-card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Drag and drop states */
+  .dragging {
+    @apply scale-105 rotate-2 shadow-lg opacity-80;
+    box-shadow: var(--shadow-glow);
+  }
+
+  .drop-zone {
+    @apply transition-colors duration-200;
+    @apply border-2 border-dashed border-transparent;
+  }
+
+  .drop-zone.active {
+    @apply border-primary/50 bg-accent/20;
+  }
+
+  /* Auth form styling */
+  .auth-card {
+    @apply bg-card backdrop-blur-xl;
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary-hover));
+  }
+}

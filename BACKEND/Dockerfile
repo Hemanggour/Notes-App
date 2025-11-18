@@ -19,9 +19,10 @@ COPY . .
 # Expose port
 EXPOSE 8000
 
-# Copy entrypoint script
+# Copy entrypoint script and fix line endings
 COPY entrypoint.sh .
+RUN dos2unix entrypoint.sh || sed -i 's/\r$//' entrypoint.sh
 RUN chmod +x entrypoint.sh
 
 # Use the script as CMD
-CMD ["./entrypoint.sh"]
+CMD ["sh", "./entrypoint.sh"]

@@ -124,22 +124,13 @@ DATABASES = {
     }
 }
 
-
-# Redis backend setup (optional now, but you'll use it eventually)
-CHANNEL_LAYERS = {
+# Cache configuration - using in-memory backend
+CACHES = {
     "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [
-                (
-                    os.getenv("REDIS_HOST", "127.0.0.1"),
-                    int(os.getenv("REDIS_PORT", 6379)),
-                )
-            ],
-        },
-    },
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    }
 }
-
 
 # Auth User Model
 AUTH_USER_MODEL = "account.User"

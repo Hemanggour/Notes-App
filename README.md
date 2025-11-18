@@ -171,10 +171,6 @@ NotesApp/
    SUPERUSER_USERNAME=admin
    SUPERUSER_EMAIL=admin@notesapp.com
    SUPERUSER_PASSWORD=admin-password
-   
-   # Redis
-   REDIS_HOST=redis
-   REDIS_PORT=6379
    ```
 
 3. **Build and run with Docker Compose**

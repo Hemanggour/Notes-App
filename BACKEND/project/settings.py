@@ -42,6 +42,11 @@ CORS_ALLOWED_ORIGINS = (
     else []
 )
 
+# SuperUser Configs
+SUPERUSER_USERNAME = os.getenv("SUPERUSER_USERNAME")
+SUPERUSER_EMAIL = os.getenv("SUPERUSER_EMAIL")
+SUPERUSER_PASSWORD = os.getenv("SUPERUSER_PASSWORD")
+
 
 # Application definition
 

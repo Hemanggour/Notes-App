@@ -2,10 +2,19 @@
 
 export PYTHONPATH=/app
 
-sleep 10  # Wait for the database to be ready
+# Wait for the database to be ready
+echo "Waiting for database..."
+until python manage.py check --database default; do
+  >&2 echo "Database is unavailable - sleeping"
+  sleep 2
+done
 
 # Run Django migrations
 python manage.py migrate --noinput
+
+# Create superuser if it doesn't exist
+echo "Creating superuser if not exists..."
+python manage.py create_superuser
 
 # Collect static files
 python manage.py collectstatic --noinput

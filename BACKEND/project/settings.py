@@ -31,12 +31,12 @@ SECRET_KEY = os.getenv("SECRET_KEY", None)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = (
+ALLOWED_HOSTS = list(
     os.getenv("ALLOWED_HOSTS", "").split(",") if os.getenv("ALLOWED_HOSTS") else []
 )
 
 # CORS settings
-CORS_ALLOWED_ORIGINS = (
+CORS_ALLOWED_ORIGINS = list(
     os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
     if os.getenv("CORS_ALLOWED_ORIGINS")
     else []

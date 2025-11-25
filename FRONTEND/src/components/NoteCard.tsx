@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { MoreVertical, Edit, Trash2, Palette } from 'lucide-react';
 import { NoteWithPreferences } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -8,6 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu';
 import { noteColors } from '@/data/demoData';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -27,24 +29,23 @@ export const NoteCard: React.FC<NoteCardProps> = ({
   onColorChange,
   isDragging = false,
 }) => {
-  const [showColorPicker, setShowColorPicker] = useState(false);
   const { theme } = useTheme();
 
   const getDarkenedColor = (color: string) => {
     if (theme === 'light') return color;
-    
+
     // In dark mode, darken the color significantly for better contrast
     const hex = color.replace('#', '');
     const r = parseInt(hex.substring(0, 2), 16);
     const g = parseInt(hex.substring(2, 4), 16);
     const b = parseInt(hex.substring(4, 6), 16);
-    
+
     // Reduce brightness to about 30% for dark mode
     const darkenFactor = 0.3;
     const newR = Math.floor(r * darkenFactor);
     const newG = Math.floor(g * darkenFactor);
     const newB = Math.floor(b * darkenFactor);
-    
+
     return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
   };
 
@@ -68,9 +69,8 @@ export const NoteCard: React.FC<NoteCardProps> = ({
 
   return (
     <div
-      className={`note-card bg-card rounded-xl p-4 shadow-sm border border-border/50 cursor-pointer select-none ${
-        isDragging ? 'dragging' : ''
-      }`}
+      className={`note-card bg-card rounded-xl p-4 shadow-sm border border-border/50 cursor-pointer select-none ${isDragging ? 'dragging' : ''
+        }`}
       style={{ backgroundColor: getDarkenedColor(note.color || '#ffffff') }}
       onClick={() => onEdit(note)}
     >
@@ -97,38 +97,33 @@ export const NoteCard: React.FC<NoteCardProps> = ({
               <Edit className="mr-2 h-4 w-4" />
               Edit note
             </DropdownMenuItem>
-            
-            <DropdownMenuItem 
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowColorPicker(!showColorPicker);
-              }}
-            >
-              <Palette className="mr-2 h-4 w-4" />
-              Change color
-            </DropdownMenuItem>
-            
-            {showColorPicker && (
-              <div className="px-2 py-2" onClick={(e) => e.stopPropagation()}>
-                <div className="grid grid-cols-5 gap-2">
-                  {noteColors.map((color) => (
-                    <button
-                      key={color}
-                      className="w-6 h-6 rounded-full border-2 border-border hover:scale-110 transition-transform"
-                      style={{ backgroundColor: color }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onColorChange(note.note_uuid, color);
-                        setShowColorPicker(false);
-                      }}
-                    />
-                  ))}
+
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger onClick={(e) => e.stopPropagation()}>
+                <Palette className="mr-2 h-4 w-4" />
+                Change color
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent className="w-auto">
+                <div className="px-2 py-2">
+                  <div className="grid grid-cols-5 gap-2">
+                    {noteColors.map((color) => (
+                      <button
+                        key={color}
+                        className="w-6 h-6 rounded-full border-2 border-border hover:scale-110 transition-transform"
+                        style={{ backgroundColor: color }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onColorChange(note.note_uuid, color);
+                        }}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-            
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+
             <DropdownMenuSeparator />
-            
+
             <DropdownMenuItem
               onClick={(e) => {
                 e.stopPropagation();

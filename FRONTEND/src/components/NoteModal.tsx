@@ -72,7 +72,7 @@ export const NoteModal: React.FC<NoteModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-hidden" onKeyDown={handleKeyDown}>
+      <DialogContent className="sm:max-w-[600px]" onKeyDown={handleKeyDown}>
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
             <span>{isEditing ? 'Edit Note' : 'Create New Note'}</span>
@@ -81,12 +81,9 @@ export const NoteModal: React.FC<NoteModalProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowColorPicker(!showColorPicker)}
-                className="h-8 w-8 p-0"
+                className="h-8 w-8 p-0 mr-10"
               >
                 <Palette className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0">
-                <X className="h-4 w-4" />
               </Button>
             </div>
           </DialogTitle>
@@ -100,9 +97,8 @@ export const NoteModal: React.FC<NoteModalProps> = ({
                 {noteColors.map((color) => (
                   <button
                     key={color}
-                    className={`w-8 h-8 rounded-full border-2 hover:scale-110 transition-transform ${
-                      selectedColor === color ? 'border-primary ring-2 ring-primary/20' : 'border-border'
-                    }`}
+                    className={`w-8 h-8 rounded-full border-2 hover:scale-110 transition-transform ${selectedColor === color ? 'border-primary ring-2 ring-primary/20' : 'border-border'
+                      }`}
                     style={{ backgroundColor: color }}
                     onClick={() => setSelectedColor(color)}
                   />
@@ -130,7 +126,7 @@ export const NoteModal: React.FC<NoteModalProps> = ({
               placeholder="Write your note here..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="min-h-[300px] resize-none"
+              className={`${showColorPicker ? 'min-h-[180px]' : 'min-h-[300px]'} resize-none transition-all duration-200`}
               style={{ backgroundColor: selectedColor + '20' }}
             />
           </div>

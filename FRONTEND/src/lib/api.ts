@@ -11,7 +11,8 @@ import {
 } from '@/types';
 
 // API Configuration
-const API_BASE_URL = `${import.meta.env.VITE_API_URL}` || 'http://localhost:8000/api';
+// const API_BASE_URL = `${import.meta.env.VITE_API_URL}` || 'http://localhost:8000/api';
+const API_BASE_URL = 'http://localhost:8000/api';
 
 // Token management
 const getToken = () => localStorage.getItem('auth_token');
@@ -49,7 +50,7 @@ const apiClient = async (
   // Handle 401 - Unauthorized (token expired)
   if (response.status === 401 && !skipRetry && endpoint !== '/account/token/refresh/') {
     const refreshToken = getRefreshToken();
-    
+
     if (refreshToken) {
       try {
         // If already refreshing, wait for that promise
@@ -62,7 +63,7 @@ const apiClient = async (
           const newToken = await refreshPromise;
           isRefreshing = false;
           refreshPromise = null;
-          
+
           // Retry original request with new token
           return apiClient(endpoint, options, true);
         }
@@ -180,7 +181,7 @@ export const notesAPI = {
   delete: async (note_uuid: string): Promise<void> => {
     await apiClient('/notes/', {
       method: 'DELETE',
-      body: JSON.stringify({note_uuid: [note_uuid]}),
+      body: JSON.stringify({ note_uuid: [note_uuid] }),
     });
   },
 };

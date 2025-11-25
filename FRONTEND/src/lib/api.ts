@@ -4,6 +4,7 @@ import {
   RegisterCredentials,
   ForgotPasswordRequest,
   ResetPasswordRequest,
+  ChangePasswordRequest,
   Note,
   CreateNoteRequest,
   UpdateNoteRequest,
@@ -136,6 +137,13 @@ export const authAPI = {
     });
   },
 
+  changePassword: async (data: ChangePasswordRequest): Promise<{ message: string }> => {
+    return apiClient('/account/change-password/', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
   logout: () => {
     removeToken();
     removeRefreshToken();
@@ -148,7 +156,7 @@ export const authAPI = {
 
   updateProfile: async (data: Partial<User>): Promise<User> => {
     const response = await apiClient('/account/profile/', {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify(data),
     });
     return response.data;

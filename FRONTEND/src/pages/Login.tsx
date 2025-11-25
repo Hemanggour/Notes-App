@@ -42,7 +42,7 @@ export default function Login() {
       const response = await authAPI.login(formData) as AuthResponse;
       const { access: accessToken } = response.data.tokens;
       const decodedToken = jwtDecode<JwtPayload>(accessToken);
-      
+
       const userData = {
         id: decodedToken.user_uuid,
         username: decodedToken.user.username,
@@ -50,7 +50,7 @@ export default function Login() {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
-      
+
       login(accessToken, userData);
       toast({
         title: 'Welcome back!',
@@ -60,7 +60,7 @@ export default function Login() {
     } catch (error) {
       toast({
         title: 'Login failed',
-        description: error instanceof Error ? error.message : 'Please check your credentials.',
+        description: 'Please check your credentials.',
         variant: 'destructive',
       });
     } finally {
@@ -80,7 +80,7 @@ export default function Login() {
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
-      
+
       <Card className="w-full max-w-md auth-card animate-scale-in">
         <CardHeader className="space-y-1 text-center">
           <div className="flex items-center justify-center mb-4">
@@ -93,7 +93,7 @@ export default function Login() {
             Sign in to your account to continue
           </CardDescription>
         </CardHeader>
-        
+
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
@@ -111,7 +111,7 @@ export default function Login() {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">

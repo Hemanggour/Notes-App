@@ -12,6 +12,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link, useNavigate } from 'react-router-dom';
+import { authAPI } from '@/lib/api';
 
 export default function Settings() {
   const { user, updateUser } = useAuth();
@@ -40,9 +41,10 @@ export default function Settings() {
     setIsLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await authAPI.updateProfile({
+        username: formData.username,
+      });
+
       updateUser({
         username: formData.username,
         email: formData.email,
@@ -65,7 +67,7 @@ export default function Settings() {
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (formData.newPassword !== formData.confirmPassword) {
       toast({
         title: 'Passwords do not match',
@@ -78,8 +80,10 @@ export default function Settings() {
     setIsLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await authAPI.changePassword({
+        old_password: formData.currentPassword,
+        new_password: formData.newPassword,
+      });
 
       toast({
         title: 'Password updated!',
@@ -226,8 +230,8 @@ export default function Settings() {
                     />
                   </div>
                 </div>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   disabled={isLoading || !formData.currentPassword || !formData.newPassword}
                 >
                   {isLoading ? 'Updating...' : 'Update Password'}

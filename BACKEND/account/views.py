@@ -76,6 +76,38 @@ class RegisterView(APIView):
         )
 
 
+class PasswordChangeView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    class PasswordChangePostSerializer(serializers.Serializer):
+        old_password = serializers.CharField(required=True, allow_blank=False)
+        new_password = serializers.CharField(required=True, allow_blank=False)
+
+    def post(self, *args, **kwargs):
+        post_serializer = self.PasswordChangePostSerializer(data=self.request.data)
+        post_serializer.is_valid(raise_exception=True)
+
+        old_password = post_serializer.validated_data.get("old_password")
+        new_password = post_serializer.validated_data.get("new_password")
+
+        user_obj = self.request.user
+
+        if not user_obj.check_password(old_password):
+            return formatted_response(
+                message={"error": "Invalid password"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user_obj.set_password(new_password)
+        user_obj.save()
+
+        return formatted_response(
+            message={"success": "Password changed successfully"},
+            status=status.HTTP_200_OK,
+        )
+
+
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]

@@ -26,6 +26,8 @@ class LoginView(APIView):
         email = serializer.validated_data.get("email")
         password = serializer.validated_data.get("password")
 
+        print("Hello")
+
         try:
             user_obj = User.objects.get(email=email)
         except User.DoesNotExist:

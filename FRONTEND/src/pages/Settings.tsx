@@ -34,11 +34,12 @@ export default function Settings() {
     weeklyDigest: true,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isProfileLoading, setIsProfileLoading] = useState(false);
+  const [isPasswordLoading, setIsPasswordLoading] = useState(false);
 
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsProfileLoading(true);
 
     try {
       await authAPI.updateProfile({
@@ -61,7 +62,7 @@ export default function Settings() {
         variant: 'destructive',
       });
     } finally {
-      setIsLoading(false);
+      setIsProfileLoading(false);
     }
   };
 
@@ -77,7 +78,7 @@ export default function Settings() {
       return;
     }
 
-    setIsLoading(true);
+    setIsPasswordLoading(true);
 
     try {
       await authAPI.changePassword({
@@ -103,7 +104,7 @@ export default function Settings() {
         variant: 'destructive',
       });
     } finally {
-      setIsLoading(false);
+      setIsPasswordLoading(false);
     }
   };
 
@@ -178,8 +179,8 @@ export default function Settings() {
                     />
                   </div>
                 </div>
-                <Button type="submit" disabled={isLoading}>
-                  {isLoading ? 'Saving...' : 'Save Changes'}
+                <Button type="submit" disabled={isProfileLoading}>
+                  {isProfileLoading ? 'Saving...' : 'Save Changes'}
                 </Button>
               </form>
             </CardContent>
@@ -232,9 +233,9 @@ export default function Settings() {
                 </div>
                 <Button
                   type="submit"
-                  disabled={isLoading || !formData.currentPassword || !formData.newPassword}
+                  disabled={isPasswordLoading || !formData.currentPassword || !formData.newPassword}
                 >
-                  {isLoading ? 'Updating...' : 'Update Password'}
+                  {isPasswordLoading ? 'Updating...' : 'Update Password'}
                 </Button>
               </form>
             </CardContent>

@@ -68,13 +68,6 @@ export default function Login() {
     }
   };
 
-  const handleDemoLogin = () => {
-    setFormData({
-      email: 'demo@example.com',
-      password: 'demo123',
-    });
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-background-secondary p-4">
       <div className="absolute top-4 right-4">
@@ -142,14 +135,6 @@ export default function Login() {
             </div>
 
             <div className="flex items-center justify-between">
-              <Button
-                type="button"
-                variant="link"
-                className="px-0 text-sm"
-                onClick={handleDemoLogin}
-              >
-                Try Demo Account
-              </Button>
               <Link
                 to="/forgot-password"
                 className="text-sm text-primary hover:text-primary-hover transition-colors"

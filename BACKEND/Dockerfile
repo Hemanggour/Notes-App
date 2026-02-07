@@ -11,7 +11,7 @@ WORKDIR /app
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install -r  requirements.txt
 
 # Copy the backend code
 COPY . .

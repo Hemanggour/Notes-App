@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { noteColors } from '@/data/demoData';
+import { noteColors } from '@/data/noteColors';
 
 interface NoteModalProps {
   isOpen: boolean;

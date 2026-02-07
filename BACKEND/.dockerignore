@@ -10,7 +10,7 @@ venv/
 env/
 
 # Local settings / env files
-.env
+*.env
 *.sqlite3
 
 # Logs / temporary files

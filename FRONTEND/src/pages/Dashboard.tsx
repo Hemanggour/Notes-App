@@ -20,7 +20,7 @@ import { NoteWithPreferences } from '@/types';
 import { notesAPI } from '@/lib/api';
 import { noteStorage } from '@/lib/noteStorage';
 import { useNavigate } from 'react-router-dom';
-import { noteColors } from '@/data/demoData';
+import { noteColors } from '@/data/noteColors';
 
 export default function Dashboard() {
   const [notes, setNotes] = useState<NoteWithPreferences[]>([]);
@@ -41,17 +41,17 @@ export default function Dashboard() {
       try {
         const data = await notesAPI.getAll();
         const preferences = noteStorage.getAll();
-        
+
         // Merge backend data with local preferences
         const notesWithPreferences = data.map((note, index) => ({
           ...note,
           color: preferences[note.note_uuid]?.color || noteColors[0],
           position: preferences[note.note_uuid]?.position ?? index,
         }));
-        
+
         // Sort by position
         notesWithPreferences.sort((a, b) => (a.position || 0) - (b.position || 0));
-        
+
         setNotes(notesWithPreferences);
         setIsLoading(false);
       } catch (error) {
@@ -100,15 +100,15 @@ export default function Dashboard() {
           title: noteData.title,
           content: noteData.content,
         });
-        
+
         // Store color locally if changed
         if (noteData.color) {
           noteStorage.set(editingNote.note_uuid, { color: noteData.color });
         }
-        
+
         setNotes(prevNotes =>
-          prevNotes.map(note => 
-            note.note_uuid === editingNote.note_uuid 
+          prevNotes.map(note =>
+            note.note_uuid === editingNote.note_uuid
               ? { ...updated, color: noteData.color || note.color, position: note.position }
               : note
           )
@@ -123,18 +123,18 @@ export default function Dashboard() {
           title: noteData.title!,
           content: noteData.content!,
         });
-        
+
         // Store color locally
         const color = noteData.color || noteColors[0];
         noteStorage.set(created.note_uuid, { color, position: 0 });
-        
+
         // Add to state with local preferences
         const newNote: NoteWithPreferences = {
           ...created,
           color,
           position: 0,
         };
-        
+
         setNotes(prevNotes => [newNote, ...prevNotes.map((n, i) => ({ ...n, position: i + 1 }))]);
         toast({
           title: 'Note created!',
@@ -194,7 +194,7 @@ export default function Dashboard() {
     });
 
     setNotes(prevNotes => {
-      const nonFilteredNotes = prevNotes.filter(note => 
+      const nonFilteredNotes = prevNotes.filter(note =>
         !filteredNotes.some(filtered => filtered.note_uuid === note.note_uuid)
       );
       return [...updatedNotes, ...nonFilteredNotes].sort((a, b) => (a.position || 0) - (b.position || 0));
@@ -340,8 +340,8 @@ export default function Dashboard() {
               {searchQuery ? 'No notes found' : 'No notes yet'}
             </h3>
             <p className="text-muted-foreground mb-6">
-              {searchQuery 
-                ? 'Try adjusting your search terms' 
+              {searchQuery
+                ? 'Try adjusting your search terms'
                 : 'Create your first note to get started'
               }
             </p>
@@ -359,11 +359,10 @@ export default function Dashboard() {
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className={`${
-                    viewMode === 'grid'
+                  className={`${viewMode === 'grid'
                       ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
                       : 'space-y-4'
-                  } ${snapshot.isDraggingOver ? 'drop-zone active' : 'drop-zone'}`}
+                    } ${snapshot.isDraggingOver ? 'drop-zone active' : 'drop-zone'}`}
                 >
                   {filteredNotes.map((note, index) => (
                     <Draggable key={note.note_uuid} draggableId={note.note_uuid} index={index}>
